@@ -3,3 +3,7 @@ package catalogue
 type catalogue struct {
     
 }
+
+func GetCatalogue catalogue{
+    return catalogue
+}
