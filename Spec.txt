@@ -1,0 +1,25 @@
+https://github.com/ecs-cx/cx-interview-questions/blob/master/shopping_basket/assignment.md
+
+The basket-pricer component is responsible for working out which offers are applicable to products. It will apply those offers to work out the discount and therefore the final price. 
+
+This is to be a component of a much bigger system. It could be used in a number of different ways by other developers, for example in an online-shop or in the supermarket's cash-registers. For this reason, it needs to be designed to be reusable. This assignment requires you to design an interface for the basket-pricer which will be easy for other developers to use and test.
+
+For any given basket, catalogue and offers your solution should return the sub-total, discount and total, all accurate to at least two decimal places. Prices can be returned as floating-point numbers.
+
+We are only interested in the behavior of the shopping basket pricer component.
+ three for the price of two offer should also give you six for the price of four and nine for the price of six.
+
+For this exercise, a floating point number is good enough to represent a money value, but if you have a better way to represent money, feel free to use it.
+
+Bonus Question 1
+The supermarket wants to implement a new kind of offer: "Buy N of {X}, get the cheapest one for free", where N is a number of products that must be bought, and {X} is a subset of products from the catalogue that this offer is applicable to.
+
+The supermarket is keen that the discounts should be applied fairly, so the rule must be interpreted to calculate the maximum possible discount given the set of applicable chosen products. This is complicated by the fact that a user may buy any number of products from the set {X}.
+
+A basket can contain zero or more products.
+A basket is mutable - that is to say products an be added to it.
+An empty basket has a sub-total, discount and total each of zero.
+Baskets cannot have a negative price.
+The discount and therefore the total price is determined by the contents of the basket, the undiscounted price of the goods and the applicable offers.
+As with all supermarkets, the prices of goods and the offers applicable to those goods may change from day to day and therefore cannot be hard-coded into this component.
+Catalogue and offers are maintained by two different teams. It's possible that there are offers on products which are no longer in the catalogue. It's also possible that there are items in the catalogue with no offers, or multiple offers.

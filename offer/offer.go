@@ -1,6 +1,4 @@
 package offer
 
-type offer struct {
+type Offer struct {
 }
-
-var Offer string
