@@ -14,17 +14,11 @@ const (
 )
 
 var (
-	BakedBeans             product.Product
-	Biscuits               product.Product
-	Sardines               product.Product
-	ShampooSmall           product.Product
-	ShampooMedium          product.Product
-	ShampooLarge           product.Product
-	testProduct            product.Product
 	BakedBeansBuy2Get1Free offer.Offer
 	SardinesQuarterOff     offer.Offer
 	ShampooGroupOffer      offer.Offer
 	TooManyOffersOffer     offer.Offer
+	testOffer              offer.Offer
 )
 
 type datastruct struct {
@@ -99,10 +93,9 @@ func TestParallelize(t *testing.T) {
 func BenchmarkFCreateProduct(b *testing.B) {
 	b.ResetTimer()
 
-	test := Biscuits
 	for n := 0; n < b.N; n++ {
-		product := product.CreateProduct(test.Name, test.ID, test.BasicPrice, 0)
-		testProduct = product
+		offer := offer.CreateOffer(BakedBeansBuy2Get1Free.ProductID, BakedBeansBuy2Get1Free.ProductName, BakedBeansBuy2Get1Free.OfferName, BakedBeansBuy2Get1Free.OfferID, BakedBeansBuy2Get1Free.MultiBuyDiscount, BakedBeansBuy2Get1Free.GroupPromotion)
+		testOffer = offer
 
 	}
 }

@@ -7,6 +7,7 @@ This package is to create and maintain a Catalogue of Products
 import (
 	"fmt"
 
+	"github.com/doyyan/ECS/offer"
 	"github.com/doyyan/ECS/product"
 )
 
@@ -28,20 +29,31 @@ func (c *Catalogue) SetProducts(Products []product.Product) {
 	c.Products = Products
 }
 
-// SetOffers- a Method to set the Offers for some/all Products in a Catalouge..
-func (c *Catalogue) SetOffers(Products []product.Product) {
+// SetOffers - a Method to set the Offers for some/all Products in a Catalouge..
+// Browse through the products and try and find the Product in each of the offer
+// If found just set the offerID in the Product for now
+// If not found return an error code as the team setting the Offer may be different
+// to the team managing the Catalogue and its good to send a meaningful message back!!
+func (c *Catalogue) SetOffers(offers []offer.Offer) []offer.Offer {
 
-	for _, offerProducts := range Products {
+	for _, offerProduct := range offers {
 		matched = false
 		for _, product := range c.Products {
 
-			if offerProducts.ID == product.ID {
+			if offerProduct.ProductID == product.ID {
 
 				matched = true
+				product.OfferID = offerProduct.OfferID
 			}
 
 		}
+		if !matched {
+			offerProduct.OfferIssuesFound.IssueCode = "ProdctNotFound"
+			offerProduct.OfferIssuesFound.IssueDescription = "The product was not found in the Catalogue to set the offer!!"
+		}
 	}
+
+	return offers
 
 }
 
