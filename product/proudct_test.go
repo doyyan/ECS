@@ -3,6 +3,7 @@ package product_test
 import (
 	"testing"
 
+	"github.com/doyyan/ECS/dao"
 	"github.com/doyyan/ECS/product"
 )
 
@@ -12,14 +13,13 @@ const (
 )
 
 var (
-	BakedBeans    product.Product
-	Biscuits      product.Product
-	Sardines      product.Product
-	ShampooSmall  product.Product
-	ShampooMedium product.Product
-	ShampooLarge  product.Product
-	testProduct   product.Product
+	testProduct product.Product
+	products    map[string]product.Product
 )
+
+func init() {
+	products = dao.GetProducts()
+}
 
 type datastruct struct {
 	// Name of the product
@@ -33,27 +33,6 @@ type datastruct struct {
 	OfferID int
 }
 
-func init() {
-	BakedBeans = product.Product{
-		"Baked Beans", 1, 0.99, 0,
-	}
-	Biscuits = product.Product{
-		"Biscuits", 2, 1.20, 0,
-	}
-	Sardines = product.Product{
-		"Sardines", 3, 1.89, 0,
-	}
-	ShampooSmall = product.Product{
-		"Shampoo (Small)", 4, 2, 0,
-	}
-	ShampooMedium = product.Product{
-		"Shampoo (Medium)", 5, 2.5, 0,
-	}
-	ShampooLarge = product.Product{
-		"Shampoo (Large)", 6, 3.5, 0,
-	}
-}
-
 // TestParallelize- paraellized tests (great for CI/CD builds) that run and test happy and sad paths!!
 
 func TestParallelize(t *testing.T) {
@@ -65,12 +44,12 @@ func TestParallelize(t *testing.T) {
 	}
 
 	tests := []tableTest{
-		{"statusok", BakedBeans, datastruct{"Baked Beans", 1, 0.99, 0}},
-		{"statusok", Biscuits, datastruct{"Biscuits", 2, 1.20, 0}},
-		{"statusok", Sardines, datastruct{"Sardines", 3, 1.89, 0}},
-		{"statusok", ShampooSmall, datastruct{"Shampoo (Small)", 4, 2, 0}},
-		{"statusok", ShampooMedium, datastruct{"Shampoo (Medium)", 5, 2.5, 0}},
-		{"statusok", ShampooLarge, datastruct{"Shampoo (Large)", 6, 3.5, 0}},
+		{"statusok", products["Baked Beans"], datastruct{"Baked Beans", 1, 0.99, 0}},
+		{"statusok", products["Biscuits"], datastruct{"Biscuits", 2, 1.20, 0}},
+		{"statusok", products["Sardines"], datastruct{"Sardines", 3, 1.89, 0}},
+		{"statusok", products["ShampooSmall"], datastruct{"Shampoo (Small)", 4, 2, 0}},
+		{"statusok", products["ShampooMedium"], datastruct{"Shampoo (Medium)", 5, 2.5, 0}},
+		{"statusok", products["ShampooLarge"], datastruct{"Shampoo (Large)", 6, 3.5, 0}},
 		//{"statusnotok", "x", "10", errorValue, http.StatusInternalServerError},
 	}
 
@@ -102,7 +81,7 @@ func TestParallelize(t *testing.T) {
 func BenchmarkFCreateProduct(b *testing.B) {
 	b.ResetTimer()
 
-	test := Biscuits
+	test := products["Biscuits"]
 	for n := 0; n < b.N; n++ {
 		product := product.CreateProduct(test.Name, test.ID, test.BasicPrice, 0)
 		testProduct = product
