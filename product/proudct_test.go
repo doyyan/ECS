@@ -3,7 +3,6 @@ package product_test
 import (
 	"testing"
 
-	"github.com/doyyan/ECS/offer"
 	"github.com/doyyan/ECS/product"
 )
 
@@ -12,8 +11,15 @@ const (
 	failed  = "\u2717"
 )
 
-var BasicTestProduct datastruct
-var testProduct product.Product
+var (
+	BakedBeans    product.Product
+	Biscuits      product.Product
+	Sardines      product.Product
+	ShampooSmall  product.Product
+	ShampooMedium product.Product
+	ShampooLarge  product.Product
+	testProduct   product.Product
+)
 
 type datastruct struct {
 	// Name of the product
@@ -23,13 +29,28 @@ type datastruct struct {
 
 	// BasicPrice - the basic price of a product
 	BasicPrice float32
-	// Offer - any offer available for this product
-	OfferAvailable offer.Offer
+	// OfferID - any offer available for this product
+	OfferID int
 }
 
 func init() {
-	BasicTestProduct = datastruct{
-		"Baked Beans", 1, 0.99, offer.Offer{},
+	BakedBeans = product.Product{
+		"Baked Beans", 1, 0.99, 0,
+	}
+	Biscuits = product.Product{
+		"Biscuits", 2, 1.20, 0,
+	}
+	Sardines = product.Product{
+		"Sardines", 3, 1.89, 0,
+	}
+	ShampooSmall = product.Product{
+		"Shampoo (Small)", 4, 2, 0,
+	}
+	ShampooMedium = product.Product{
+		"Shampoo (Medium)", 5, 2.5, 0,
+	}
+	ShampooLarge = product.Product{
+		"Shampoo (Large)", 6, 3.5, 0,
 	}
 }
 
@@ -39,12 +60,17 @@ func TestParallelize(t *testing.T) {
 
 	type tableTest struct {
 		name       string
-		datainput  datastruct
+		datainput  product.Product
 		dataoutput datastruct
 	}
 
 	tests := []tableTest{
-		{"statusok", BasicTestProduct, datastruct{"Baked Beans", 1, 0.99, offer.Offer{}}},
+		{"statusok", BakedBeans, datastruct{"Baked Beans", 1, 0.99, 0}},
+		{"statusok", Biscuits, datastruct{"Biscuits", 2, 1.20, 0}},
+		{"statusok", Sardines, datastruct{"Sardines", 3, 1.89, 0}},
+		{"statusok", ShampooSmall, datastruct{"Shampoo (Small)", 4, 2, 0}},
+		{"statusok", ShampooMedium, datastruct{"Shampoo (Medium)", 5, 2.5, 0}},
+		{"statusok", ShampooLarge, datastruct{"Shampoo (Large)", 6, 3.5, 0}},
 		//{"statusnotok", "x", "10", errorValue, http.StatusInternalServerError},
 	}
 
@@ -57,7 +83,7 @@ func TestParallelize(t *testing.T) {
 				t.Parallel()
 
 				{
-					product := product.CreateProduct(test.datainput.Name, test.datainput.ID, test.datainput.BasicPrice, test.datainput.OfferAvailable)
+					product := product.CreateProduct(test.datainput.Name, test.datainput.ID, test.datainput.BasicPrice, 0)
 
 					t.Log("A product Should be Successfully created ")
 					if product.Name == test.datainput.Name {
@@ -76,9 +102,9 @@ func TestParallelize(t *testing.T) {
 func BenchmarkFCreateProduct(b *testing.B) {
 	b.ResetTimer()
 
-	test := BasicTestProduct
+	test := Biscuits
 	for n := 0; n < b.N; n++ {
-		product := product.CreateProduct(test.Name, test.ID, test.BasicPrice, test.OfferAvailable)
+		product := product.CreateProduct(test.Name, test.ID, test.BasicPrice, 0)
 		testProduct = product
 
 	}

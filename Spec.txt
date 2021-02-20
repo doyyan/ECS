@@ -2,7 +2,8 @@ https://github.com/ecs-cx/cx-interview-questions/blob/master/shopping_basket/ass
 
 The basket-pricer component is responsible for working out which offers are applicable to products. It will apply those offers to work out the discount and therefore the final price. 
 
-This is to be a component of a much bigger system. It could be used in a number of different ways by other developers, for example in an online-shop or in the supermarket's cash-registers. For this reason, it needs to be designed to be reusable. This assignment requires you to design an interface for the basket-pricer which will be easy for other developers to use and test.
+This is to be a component of a much bigger system. It could be used in a number of different ways by other developers, for example in an online-shop or in the supermarket's cash-registers. For this reason, it needs to be designed to be reusable. 
+This assignment requires you to design an interface for the basket-pricer which will be easy for other developers to use and test.
 
 For any given basket, catalogue and offers your solution should return the sub-total, discount and total, all accurate to at least two decimal places. Prices can be returned as floating-point numbers.
 

@@ -1,4 +1,9 @@
 package pricer
 
-type pricer struct {
+import (
+	"github.com/doyyan/ECS/bucket"
+)
+
+type pricer interface {
+	Price(bucket bucket.Bucket)
 }
