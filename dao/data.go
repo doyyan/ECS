@@ -27,7 +27,7 @@ type datastruct struct {
 
 func init() {
 
-	bakedBeansBuy2Get1Free = datatypes.Offer{ProductID: 1, ProductName: "Baked Beans", OfferName: "BakedBeansBuy2Get1Free", OfferID: 1, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 2, DiscountPercentage: 50}, GroupPromotion: datatypes.PromotionAsPartOfList{}}
+	bakedBeansBuy2Get1Free = datatypes.Offer{ProductID: 1, ProductName: "Baked Beans", OfferName: "BakedBeansBuy2Get1Free", OfferID: 1, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 3, DiscountPercentage: 33.33}, GroupPromotion: datatypes.PromotionAsPartOfList{}}
 
 	sardinesQuarterOff = datatypes.Offer{ProductID: 3, ProductName: "Sardines", OfferName: "SardinesQuarterOff", OfferID: 2, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: datatypes.PromotionAsPartOfList{}}
 

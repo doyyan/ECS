@@ -5,7 +5,7 @@ type BuyXgetYFree struct {
 	// MinNoOfItems Minimum number of items in a batch to qualify for this discount..
 	MinNoOfItems int
 	// DiscountPercentage the percentage of discount.
-	DiscountPercentage int
+	DiscountPercentage float32
 }
 
 // Issue meaningful error codes/descriptions to be transported back..

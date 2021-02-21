@@ -16,6 +16,7 @@ var (
 	products      []datatypes.Product
 	offers        []datatypes.Offer
 	produce       datatypes.Product
+	produce2      datatypes.Product
 )
 
 func init() {
@@ -131,12 +132,19 @@ func TestMultiBuyDiscountSale(t *testing.T) {
 
 					for _, value := range products {
 
-						if value.Name == "Sardines" {
+						if value.Name == "Baked Beans" {
 							produce = *value
+						}
+						if value.Name == "Biscuits" {
+							produce2 = *value
 						}
 					}
 
-					item := datatypes.CreateItem(produce, 9)
+					item := datatypes.CreateItem(produce, 7)
+
+					item2 := datatypes.CreateItem(produce2, 4)
+
+					basket.AddOrUpdateItem(&item2)
 
 					basket.AddOrUpdateItem(&item)
 

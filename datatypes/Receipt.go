@@ -24,7 +24,12 @@ func (r Receipt) String() string {
 	if len(r.ReceiptLines) > 0 {
 		for _, val := range r.ReceiptLines {
 			data = data + val.Product.Name + " \t Original Price " + fmt.Sprintf(FLOATFORMAT, val.BasicPrice) + " \t Discount " + fmt.Sprintf(FLOATFORMAT, val.Discount) + " \t Discounted Price " + fmt.Sprintf(FLOATFORMAT, val.DiscountedBasicPrice) + "\n"
-			total = total + val.DiscountedBasicPrice
+			if val.DiscountedBasicPrice != 0 {
+				total = total + val.DiscountedBasicPrice
+			} else {
+				total = total + val.BasicPrice
+			}
+
 		}
 
 	}
