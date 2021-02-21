@@ -1,0 +1,13 @@
+mode: set
+github.com/doyyan/ECS/datatypes/item.go:18.40,21.2 1 0
+github.com/doyyan/ECS/datatypes/offer.go:26.159,30.84 2 1
+github.com/doyyan/ECS/datatypes/offer.go:37.2,38.10 2 1
+github.com/doyyan/ECS/datatypes/offer.go:30.84,36.3 4 1
+github.com/doyyan/ECS/datatypes/offer.go:43.32,45.44 2 1
+github.com/doyyan/ECS/datatypes/offer.go:49.2,49.46 1 1
+github.com/doyyan/ECS/datatypes/offer.go:54.2,54.18 1 1
+github.com/doyyan/ECS/datatypes/offer.go:45.44,48.3 1 1
+github.com/doyyan/ECS/datatypes/offer.go:49.46,52.3 1 1
+github.com/doyyan/ECS/datatypes/product.go:30.34,32.2 1 1
+github.com/doyyan/ECS/datatypes/product.go:35.82,44.2 6 0
+github.com/doyyan/ECS/datatypes/product.go:47.46,50.2 2 1

@@ -21,23 +21,30 @@ type Product struct {
 	Offer Offer
 }
 
+// ApplyOffer - sets an offer on a product
+type ApplyOffer interface {
+	ApplyOffer(o Offer)
+}
+
 // String - a Stringer Interface implementation function to describe the type created.
 func (p Product) String() string {
 	return fmt.Sprintf("%v and price %v and offers %v", p.Name, p.BasicPrice, 0)
 }
 
-// CreateProduct is an interface to be used by Offer type..
-type CreateProduct interface {
-	CreateProduct(name string, ID int, basicPrice float32, offerID int) Product
-}
-
 // CreateProduct a function to create and return a Product
-func (p Product) CreateProduct(name string, ID int, basicPrice float32, offerID int) Product {
-	// Rounding to a Ceiling value of the incoming Float and saving it onto Float32 to save memory (as opposed to Float 64)
+func CreateProduct(name string, ID int, basicPrice float32, offer Offer) Product {
+	p := Product{}
 	p.Name = name
 	p.ID = ID
+	// Rounding to a Ceiling value of the incoming Float and saving it onto Float32 to save memory (as opposed to Float 64)
 	p.BasicPrice = float32(math.Ceil(float64(basicPrice)*100) / 100)
-	p.Offer = Offer{}
+	p.Offer = offer
 
+	return p
+}
+
+// ApplyOffer - apply an offer to the given product..
+func (p *Product) ApplyOffer(o Offer) *Product {
+	p.Offer = o
 	return p
 }

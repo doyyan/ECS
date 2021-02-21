@@ -22,13 +22,9 @@ type Offer struct {
 	GroupPromotion PromotionAsPartOfList
 }
 
-// CreateOffer is an interface to be used by Offer type..
-type CreateOffer interface {
-	CreateOffer(productID int, productName string, offerName string, offerID int, multiBuyDiscount BuyXgetYFree, groupPromotion PromotionAsPartOfList) Offer
-}
-
 // CreateOffer a method to create an offer for a product..
-func (o Offer) CreateOffer(productID int, productName string, offerName string, offerID int, multiBuyDiscount BuyXgetYFree, groupPromotion PromotionAsPartOfList) Offer {
+func CreateOffer(productID int, productName string, offerName string, offerID int, multiBuyDiscount BuyXgetYFree, groupPromotion PromotionAsPartOfList) Offer {
+	o := Offer{}
 
 	// Cannot be part of Two Promotions at the same time
 	if (multiBuyDiscount != BuyXgetYFree{}) && groupPromotion.DiscountPercentage != 0 {

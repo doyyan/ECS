@@ -1,9 +1,11 @@
 package pricer
 
 import (
-	"github.com/doyyan/ECS/bucket"
+	"io"
 )
 
-type pricer interface {
-	Price(bucket bucket.Bucket)
+// Pricer is an interface that takes a Sale Basket from a customer, calculates the Totals
+// Sub-Totals and Discounts and outputs that to the given Writer
+type Pricer interface {
+	Price(w io.Writer)
 }

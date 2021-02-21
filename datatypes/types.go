@@ -23,11 +23,3 @@ type PromotionAsPartOfList struct {
 	// The discount percentage for this Product if it participates in this 0ffer.
 	DiscountPercentage int
 }
-
-// Item is a product and a number of those products chosen for purchase and put in a Shopping Basket.
-type Item struct {
-	// Prodcut that is in the basket.
-	Product Product
-	// NumberOfItems is the number of items that have been purchased.
-	NumberOfItems int
-}

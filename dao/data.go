@@ -29,7 +29,7 @@ func init() {
 
 	bakedBeansBuy2Get1Free = datatypes.Offer{ProductID: 1, ProductName: "Baked Beans", OfferName: "BakedBeansBuy2Get1Free", OfferID: 1, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 2, DiscountPercentage: 50}, GroupPromotion: datatypes.PromotionAsPartOfList{}}
 
-	sardinesQuarterOff = datatypes.Offer{ProductID: 2, ProductName: "Sardines", OfferName: "SardinesQuarterOff", OfferID: 2, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: datatypes.PromotionAsPartOfList{}}
+	sardinesQuarterOff = datatypes.Offer{ProductID: 3, ProductName: "Sardines", OfferName: "SardinesQuarterOff", OfferID: 2, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: datatypes.PromotionAsPartOfList{}}
 
 	soapOfferItems := []datatypes.Item{{Product: datatypes.Product{
 		Name: "Shampoo (Small)", ID: 4, BasicPrice: 2, Offer: datatypes.Offer{},
@@ -40,7 +40,7 @@ func init() {
 	}, NumberOfItems: 3}}
 
 	shampooGroupOffer = datatypes.Offer{ProductID: 4, ProductName: "Shampoo (Small)", OfferName: "ShampooGroupOffer", OfferID: 2, MultiBuyDiscount: datatypes.BuyXgetYFree{}, GroupPromotion: datatypes.PromotionAsPartOfList{ListOfProductToBePartOf: soapOfferItems, DiscountPercentage: 100}}
-	tooManyOffersOffer = datatypes.Offer{ProductID: 7, ProductName: "Sardines", OfferName: "TooManyOffersOffer", OfferID: 2, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: datatypes.PromotionAsPartOfList{ListOfProductToBePartOf: soapOfferItems, DiscountPercentage: 100}}
+	tooManyOffersOffer = datatypes.Offer{ProductID: 3, ProductName: "Sardines", OfferName: "TooManyOffersOffer", OfferID: 2, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: datatypes.PromotionAsPartOfList{ListOfProductToBePartOf: soapOfferItems, DiscountPercentage: 100}}
 
 	bakedBeans = datatypes.Product{
 		Name: "Baked Beans", ID: 1, BasicPrice: 0.99, Offer: datatypes.Offer{},
@@ -71,9 +71,17 @@ func GetOffers() map[string]datatypes.Offer {
 		tooManyOffersOffer.OfferName: tooManyOffersOffer}
 }
 
+// GetGoodOffers -- without the tooManyOffers offer that fails loading!!
+func GetGoodOffers() map[string]datatypes.Offer {
+	return map[string]datatypes.Offer{bakedBeansBuy2Get1Free.OfferName: bakedBeansBuy2Get1Free,
+		sardinesQuarterOff.OfferName: sardinesQuarterOff,
+		shampooGroupOffer.OfferName:  shampooGroupOffer}
+}
+
 // GetProducts gets products to the consumer pretending to be from persistant storage.
 func GetProducts() map[string]datatypes.Product {
 	var m = map[string]datatypes.Product{
+		bakedBeans.Name:    bakedBeans,
 		biscuits.Name:      biscuits,
 		sardines.Name:      sardines,
 		shampooSmall.Name:  shampooSmall,

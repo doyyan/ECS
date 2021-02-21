@@ -12,19 +12,23 @@ import (
 
 // Catalogue - is a list of products available for sale in a Shop.
 type Catalogue struct {
-	Name     string
-	Products []datatypes.Product
+	// Name of the catalogue, possibly the Store name
+	Name string
+	// ID a unique id for the catalogue
+	ID int
+	// Products A slice of Pointers to products, essential they are pointers to apply Offers
+	Products []*datatypes.Product
 }
 
 var matched bool = false
 
 // NewCatalogue - a Method to set the Products of a catalogue
-func NewCatalogue(Products []datatypes.Product) Catalogue {
-	return Catalogue{Products: Products}
+func NewCatalogue(name string, ID int, Products []*datatypes.Product) Catalogue {
+	return Catalogue{Name: name, ID: ID, Products: Products}
 }
 
 // SetProducts - a Method to set the Products of a catalogue
-func (c *Catalogue) SetProducts(Products []datatypes.Product) {
+func (c *Catalogue) SetProducts(Products []*datatypes.Product) {
 	c.Products = Products
 }
 
@@ -34,15 +38,16 @@ func (c *Catalogue) SetProducts(Products []datatypes.Product) {
 // If not found return an error code as the team setting the Offer may be different
 // to the team managing the Catalogue and its good to send a meaningful message back!!
 func (c *Catalogue) SetOffers(offers []datatypes.Offer) []datatypes.Offer {
-
+	// Range through the offers
 	for _, offerProduct := range offers {
+		// This flag is set to check to see if the intended product exists in the catalogue, if not the Caller is notified it isn't to take further action!!
 		matched = false
 		for _, product := range c.Products {
-
+			// product IDs match, time to save the Offer in the product
 			if offerProduct.ProductID == product.ID {
 
 				matched = true
-				//	product.= offerProduct.OfferID
+				product.ApplyOffer(offerProduct)
 			}
 
 		}
@@ -54,6 +59,11 @@ func (c *Catalogue) SetOffers(offers []datatypes.Offer) []datatypes.Offer {
 
 	return offers
 
+}
+
+// GetProducts - a Method to get a slice of Pointers to products in the Catalogue
+func (c *Catalogue) GetProducts() []*datatypes.Product {
+	return c.Products
 }
 
 // String - a Stringer Interface implementation function to describe the type created.
