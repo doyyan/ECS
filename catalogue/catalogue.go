@@ -66,6 +66,20 @@ func (c *Catalogue) GetProducts() []*datatypes.Product {
 	return c.Products
 }
 
+// GetProduct - a Method to get a slice of Pointers to products in the Catalogue
+func (c *Catalogue) GetProduct(p datatypes.Product) datatypes.Product {
+	product := datatypes.Product{}
+	for _, product := range c.Products {
+		// product IDs match, time to save the Offer in the product
+		if p.ID == product.ID {
+
+			return *product
+		}
+
+	}
+	return product
+}
+
 // String - a Stringer Interface implementation function to describe the type created.
 func (c Catalogue) String() string {
 	return fmt.Sprintf(" products in the catalogue %v", c.Products)

@@ -13,7 +13,7 @@ type Item struct {
 	// NumberOfItems is the number of items that have been purchased.
 	NumberOfItems int
 	// Discount the total discount applied to this item.
-	Discount int
+	Discount float32
 	// Offer - the offer that was applied to this item
 	// BasicPrice - the basic price of a product
 	BasicPrice float32

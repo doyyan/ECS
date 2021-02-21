@@ -90,3 +90,15 @@ func GetProducts() map[string]datatypes.Product {
 	}
 	return m
 }
+
+func GetProductsData() map[string]*datatypes.Product {
+	var m = map[string]*datatypes.Product{
+		bakedBeans.Name:    &bakedBeans,
+		biscuits.Name:      &biscuits,
+		sardines.Name:      &sardines,
+		shampooSmall.Name:  &shampooSmall,
+		shampooMedium.Name: &shampooMedium,
+		shampooLarge.Name:  &shampooLarge,
+	}
+	return m
+}

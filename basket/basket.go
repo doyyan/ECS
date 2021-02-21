@@ -1,9 +1,9 @@
 package basket
 
 import (
-	"fmt"
 	"io"
 
+	"github.com/doyyan/ECS/calculator"
 	"github.com/doyyan/ECS/catalogue"
 	"github.com/doyyan/ECS/datatypes"
 )
@@ -52,9 +52,9 @@ func (b *Basket) AddOrUpdateItem(item *datatypes.Item) {
 // Price - pricer implementation, returns a Sales Receipt and can output the data to the Writer that is being sent in.
 func (b *Basket) Price(w io.Writer) datatypes.Receipt {
 
-	if w != nil {
-		fmt.Println(w, "data")
-	}
+	grandTotal := calculator.Calculate(b.Items, b.Catalouge)
 
-	return datatypes.Receipt{}
+	r := datatypes.Receipt{}
+
+	return *r.CreateReceipt(b.Items, grandTotal)
 }
