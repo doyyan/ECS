@@ -1,6 +1,7 @@
 package basket
 
 import (
+	"fmt"
 	"io"
 
 	"github.com/doyyan/ECS/calculator"
@@ -56,5 +57,10 @@ func (b *Basket) Price(w io.Writer) datatypes.Receipt {
 
 	r := datatypes.Receipt{}
 
-	return *r.CreateReceipt(b.Items, grandTotal)
+	receipt := *r.CreateReceipt(b.Items, grandTotal)
+	if w != nil {
+		fmt.Println(w, receipt)
+	}
+
+	return receipt
 }
