@@ -1,4 +1,4 @@
-package product_test
+package datatypes_test
 
 import (
 	"testing"
@@ -6,11 +6,6 @@ import (
 	"github.com/doyyan/ECS/dao"
 	"github.com/doyyan/ECS/datatypes"
 	"github.com/doyyan/ECS/product"
-)
-
-const (
-	succeed = "\u2713"
-	failed  = "\u2717"
 )
 
 var (
