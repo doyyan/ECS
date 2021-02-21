@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/doyyan/ECS/dao"
+	"github.com/doyyan/ECS/datatypes"
 	"github.com/doyyan/ECS/product"
 )
 
@@ -13,8 +14,8 @@ const (
 )
 
 var (
-	testProduct product.Product
-	products    map[string]product.Product
+	testProduct datatypes.Product
+	products    map[string]datatypes.Product
 )
 
 func init() {
@@ -39,7 +40,7 @@ func TestParallelize(t *testing.T) {
 
 	type tableTest struct {
 		name       string
-		datainput  product.Product
+		datainput  datatypes.Product
 		dataoutput datastruct
 	}
 

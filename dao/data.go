@@ -1,23 +1,21 @@
 package dao
 
 import (
-	"github.com/doyyan/ECS/item"
-	"github.com/doyyan/ECS/offer"
-	"github.com/doyyan/ECS/product"
+	"github.com/doyyan/ECS/datatypes"
 )
 
 var (
-	BakedBeansBuy2Get1Free offer.Offer
-	SardinesQuarterOff     offer.Offer
-	ShampooGroupOffer      offer.Offer
-	TooManyOffersOffer     offer.Offer
-	testOffer              offer.Offer
-	BakedBeans             product.Product
-	Biscuits               product.Product
-	Sardines               product.Product
-	ShampooSmall           product.Product
-	ShampooMedium          product.Product
-	ShampooLarge           product.Product
+	bakedBeansBuy2Get1Free datatypes.Offer
+	sardinesQuarterOff     datatypes.Offer
+	shampooGroupOffer      datatypes.Offer
+	tooManyOffersOffer     datatypes.Offer
+	testOffer              datatypes.Offer
+	bakedBeans             datatypes.Product
+	biscuits               datatypes.Product
+	sardines               datatypes.Product
+	shampooSmall           datatypes.Product
+	shampooMedium          datatypes.Product
+	shampooLarge           datatypes.Product
 )
 
 type datastruct struct {
@@ -29,56 +27,58 @@ type datastruct struct {
 
 func init() {
 
-	BakedBeansBuy2Get1Free = offer.Offer{ProductID: 1, ProductName: "Baked Beans", OfferName: "BakedBeansBuy2Get1Free", OfferID: 1, MultiBuyDiscount: offer.BuyXgetYFree{MinNoOfItems: 2, DiscountPercentage: 50}, GroupPromotion: offer.PromotionAsPartOfList{}}
+	bakedBeansBuy2Get1Free = datatypes.Offer{ProductID: 1, ProductName: "Baked Beans", OfferName: "BakedBeansBuy2Get1Free", OfferID: 1, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 2, DiscountPercentage: 50}, GroupPromotion: datatypes.PromotionAsPartOfList{}}
 
-	SardinesQuarterOff = offer.Offer{ProductID: 2, ProductName: "Sardines", OfferName: "SardinesQuarterOff", OfferID: 2, MultiBuyDiscount: offer.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: offer.PromotionAsPartOfList{}}
+	sardinesQuarterOff = datatypes.Offer{ProductID: 2, ProductName: "Sardines", OfferName: "SardinesQuarterOff", OfferID: 2, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: datatypes.PromotionAsPartOfList{}}
 
-	soapOfferItems := []item.Item{{product.Product{
-		"Shampoo (Small)", 4, 2, 0,
-	}, 2}, {product.Product{
-		"Shampoo (Medium)", 5, 2.5, 0,
-	}, 1}, {product.Product{
-		"Shampoo (Large)", 6, 3.5, 0,
-	}, 3}}
+	soapOfferItems := []datatypes.Item{{Product: datatypes.Product{
+		Name: "Shampoo (Small)", ID: 4, BasicPrice: 2, Offer: datatypes.Offer{},
+	}, NumberOfItems: 2}, {Product: datatypes.Product{
+		Name: "Shampoo (Medium)", ID: 5, BasicPrice: 2.5, Offer: datatypes.Offer{},
+	}, NumberOfItems: 1}, {Product: datatypes.Product{
+		Name: "Shampoo (Large)", ID: 6, BasicPrice: 3.5, Offer: datatypes.Offer{},
+	}, NumberOfItems: 3}}
 
-	ShampooGroupOffer = offer.Offer{ProductID: 4, ProductName: "Shampoo (Small)", OfferName: "ShampooGroupOffer", OfferID: 2, MultiBuyDiscount: offer.BuyXgetYFree{}, GroupPromotion: offer.PromotionAsPartOfList{soapOfferItems, 100}}
-	TooManyOffersOffer = offer.Offer{ProductID: 7, ProductName: "Sardines", OfferName: "TooManyOffersOffer", OfferID: 2, MultiBuyDiscount: offer.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: offer.PromotionAsPartOfList{soapOfferItems, 100}}
+	shampooGroupOffer = datatypes.Offer{ProductID: 4, ProductName: "Shampoo (Small)", OfferName: "ShampooGroupOffer", OfferID: 2, MultiBuyDiscount: datatypes.BuyXgetYFree{}, GroupPromotion: datatypes.PromotionAsPartOfList{ListOfProductToBePartOf: soapOfferItems, DiscountPercentage: 100}}
+	tooManyOffersOffer = datatypes.Offer{ProductID: 7, ProductName: "Sardines", OfferName: "TooManyOffersOffer", OfferID: 2, MultiBuyDiscount: datatypes.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: datatypes.PromotionAsPartOfList{ListOfProductToBePartOf: soapOfferItems, DiscountPercentage: 100}}
 
-	BakedBeans = product.Product{
-		"Baked Beans", 1, 0.99, 0,
+	bakedBeans = datatypes.Product{
+		Name: "Baked Beans", ID: 1, BasicPrice: 0.99, Offer: datatypes.Offer{},
 	}
-	Biscuits = product.Product{
-		"Biscuits", 2, 1.20, 0,
+	biscuits = datatypes.Product{
+		Name: "Biscuits", ID: 2, BasicPrice: 1.20, Offer: datatypes.Offer{},
 	}
-	Sardines = product.Product{
-		"Sardines", 3, 1.89, 0,
+	sardines = datatypes.Product{
+		Name: "Sardines", ID: 3, BasicPrice: .89, Offer: datatypes.Offer{},
 	}
-	ShampooSmall = product.Product{
-		"Shampoo (Small)", 4, 2, 0,
+	shampooSmall = datatypes.Product{
+		Name: "Shampoo (Small)", ID: 4, BasicPrice: 2, Offer: datatypes.Offer{},
 	}
-	ShampooMedium = product.Product{
-		"Shampoo (Medium)", 5, 2.5, 0,
+	shampooMedium = datatypes.Product{
+		Name: "Shampoo (Medium)", ID: 5, BasicPrice: 2.5, Offer: datatypes.Offer{},
 	}
-	ShampooLarge = product.Product{
-		"Shampoo (Large)", 6, 3.5, 0,
+	shampooLarge = datatypes.Product{
+		Name: "Shampoo (Large)", ID: 6, BasicPrice: 3.5, Offer: datatypes.Offer{},
 	}
 
 }
 
-func GetOffers() []offer.Offer {
-	return []offer.Offer{BakedBeansBuy2Get1Free,
-		SardinesQuarterOff,
-		ShampooGroupOffer,
-		TooManyOffersOffer}
+// GetOffers gets offers out to the consumer pretending to get it from persistant storage
+func GetOffers() map[string]datatypes.Offer {
+	return map[string]datatypes.Offer{bakedBeansBuy2Get1Free.OfferName: bakedBeansBuy2Get1Free,
+		sardinesQuarterOff.OfferName: sardinesQuarterOff,
+		shampooGroupOffer.OfferName:  shampooGroupOffer,
+		tooManyOffersOffer.OfferName: tooManyOffersOffer}
 }
 
-func GetProducts() map[string]product.Product {
-	var m = map[string]product.Product{
-		Biscuits.Name:      Biscuits,
-		Sardines.Name:      Sardines,
-		ShampooSmall.Name:  ShampooSmall,
-		ShampooMedium.Name: ShampooMedium,
-		ShampooLarge.Name:  ShampooLarge,
+// GetProducts gets products to the consumer pretending to be from persistant storage.
+func GetProducts() map[string]datatypes.Product {
+	var m = map[string]datatypes.Product{
+		biscuits.Name:      biscuits,
+		sardines.Name:      sardines,
+		shampooSmall.Name:  shampooSmall,
+		shampooMedium.Name: shampooMedium,
+		shampooLarge.Name:  shampooLarge,
 	}
 	return m
 }

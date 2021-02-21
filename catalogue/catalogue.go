@@ -7,25 +7,24 @@ This package is to create and maintain a Catalogue of Products
 import (
 	"fmt"
 
-	"github.com/doyyan/ECS/offer"
-	"github.com/doyyan/ECS/product"
+	"github.com/doyyan/ECS/datatypes"
 )
 
 // Catalogue - is a list of products available for sale in a Shop.
 type Catalogue struct {
 	Name     string
-	Products []product.Product
+	Products []datatypes.Product
 }
 
 var matched bool = false
 
 // NewCatalogue - a Method to set the Products of a catalogue
-func NewCatalogue(Products []product.Product) Catalogue {
+func NewCatalogue(Products []datatypes.Product) Catalogue {
 	return Catalogue{Products: Products}
 }
 
 // SetProducts - a Method to set the Products of a catalogue
-func (c *Catalogue) SetProducts(Products []product.Product) {
+func (c *Catalogue) SetProducts(Products []datatypes.Product) {
 	c.Products = Products
 }
 
@@ -34,7 +33,7 @@ func (c *Catalogue) SetProducts(Products []product.Product) {
 // If found just set the offerID in the Product for now
 // If not found return an error code as the team setting the Offer may be different
 // to the team managing the Catalogue and its good to send a meaningful message back!!
-func (c *Catalogue) SetOffers(offers []offer.Offer) []offer.Offer {
+func (c *Catalogue) SetOffers(offers []datatypes.Offer) []datatypes.Offer {
 
 	for _, offerProduct := range offers {
 		matched = false
@@ -43,7 +42,7 @@ func (c *Catalogue) SetOffers(offers []offer.Offer) []offer.Offer {
 			if offerProduct.ProductID == product.ID {
 
 				matched = true
-				product.OfferID = offerProduct.OfferID
+				//	product.= offerProduct.OfferID
 			}
 
 		}
@@ -59,5 +58,5 @@ func (c *Catalogue) SetOffers(offers []offer.Offer) []offer.Offer {
 
 // String - a Stringer Interface implementation function to describe the type created.
 func (c Catalogue) String() string {
-	return fmt.Sprintf(" products in the catalogue ", c.Products)
+	return fmt.Sprintf(" products in the catalogue %v", c.Products)
 }

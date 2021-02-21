@@ -3,9 +3,9 @@ package offer_test
 import (
 	"testing"
 
-	"github.com/doyyan/ECS/item"
+	"github.com/doyyan/ECS/dao"
+	"github.com/doyyan/ECS/datatypes"
 	"github.com/doyyan/ECS/offer"
-	"github.com/doyyan/ECS/product"
 )
 
 const (
@@ -14,11 +14,8 @@ const (
 )
 
 var (
-	BakedBeansBuy2Get1Free offer.Offer
-	SardinesQuarterOff     offer.Offer
-	ShampooGroupOffer      offer.Offer
-	TooManyOffersOffer     offer.Offer
-	testOffer              offer.Offer
+	offers    map[string]datatypes.Offer
+	testOffer datatypes.Offer
 )
 
 type datastruct struct {
@@ -30,20 +27,7 @@ type datastruct struct {
 
 func init() {
 
-	BakedBeansBuy2Get1Free = offer.Offer{ProductID: 1, ProductName: "Baked Beans", OfferName: "BakedBeansBuy2Get1Free", OfferID: 1, MultiBuyDiscount: offer.BuyXgetYFree{MinNoOfItems: 2, DiscountPercentage: 50}, GroupPromotion: offer.PromotionAsPartOfList{}}
-
-	SardinesQuarterOff = offer.Offer{ProductID: 2, ProductName: "Sardines", OfferName: "SardinesQuarterOff", OfferID: 2, MultiBuyDiscount: offer.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: offer.PromotionAsPartOfList{}}
-
-	soapOfferItems := []item.Item{{product.Product{
-		"Shampoo (Small)", 4, 2, 0,
-	}, 2}, {product.Product{
-		"Shampoo (Medium)", 5, 2.5, 0,
-	}, 1}, {product.Product{
-		"Shampoo (Large)", 6, 3.5, 0,
-	}, 3}}
-
-	ShampooGroupOffer = offer.Offer{ProductID: 4, ProductName: "Shampoo (Small)", OfferName: "ShampooGroupOffer", OfferID: 2, MultiBuyDiscount: offer.BuyXgetYFree{}, GroupPromotion: offer.PromotionAsPartOfList{soapOfferItems, 100}}
-	TooManyOffersOffer = offer.Offer{ProductID: 7, ProductName: "Sardines", OfferName: "TooManyOffersOffer", OfferID: 2, MultiBuyDiscount: offer.BuyXgetYFree{MinNoOfItems: 1, DiscountPercentage: 25}, GroupPromotion: offer.PromotionAsPartOfList{soapOfferItems, 100}}
+	offers = dao.GetOffers()
 
 }
 
@@ -54,15 +38,15 @@ func TestParallelize(t *testing.T) {
 
 	type tableTest struct {
 		name       string
-		datainput  offer.Offer
+		datainput  datatypes.Offer
 		dataoutput datastruct
 	}
 
 	tests := []tableTest{
-		//	{"BakedBeansBuy2Get1FreeOK", BakedBeansBuy2Get1Free, datastruct{"Baked Beans", ""}},
-		//{"SardinesQuarterOffOK", SardinesQuarterOff, datastruct{"Sardines", ""}},
-		//	{"ShampooGroupOfferOK", ShampooGroupOffer, datastruct{"Shampoo (Small)", ""}},
-		{"TooManyOffersOfferNotOk", TooManyOffersOffer, datastruct{"TooManyOffersOffer", "TooManyPromotions"}},
+		{"BakedBeansBuy2Get1FreeOK", offers["BakedBeansBuy2Get1Free"], datastruct{"Baked Beans", ""}},
+		{"SardinesQuarterOffOK", offers["SardinesQuarterOff"], datastruct{"Sardines", ""}},
+		{"ShampooGroupOfferOK", offers["ShampooGroupOffer"], datastruct{"Shampoo (Small)", ""}},
+		{"TooManyOffersOfferNotOk", offers["TooManyOffersOffer"], datastruct{"TooManyOffersOffer", "TooManyPromotions"}},
 	}
 
 	t.Log("Given the need to test if Offers can be created successfully.")
@@ -92,6 +76,8 @@ func TestParallelize(t *testing.T) {
 // BenchmarkFib20 -- test a small nominal value for Benchmarks
 func BenchmarkFCreateProduct(b *testing.B) {
 	b.ResetTimer()
+
+	BakedBeansBuy2Get1Free := offers["BakedBeansBuy2Get1Free"]
 
 	for n := 0; n < b.N; n++ {
 		offer := offer.CreateOffer(BakedBeansBuy2Get1Free.ProductID, BakedBeansBuy2Get1Free.ProductName, BakedBeansBuy2Get1Free.OfferName, BakedBeansBuy2Get1Free.OfferID, BakedBeansBuy2Get1Free.MultiBuyDiscount, BakedBeansBuy2Get1Free.GroupPromotion)
