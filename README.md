@@ -29,5 +29,17 @@ Each ```Basket``` has a ```Catalogue``` attached to it which contains a list of 
 The ```Catalogue``` exposes options for teams to Update ```Offers``` for ```Products```
 
 
+The packages are organised as 
+&nbsp;
+
+```basket``` - Shopping basket and its Unit tests
+
+```calculator``` - main discount calculation engine
+
+```datatypes``` - datatypes and their Unit tests
+
+```dao``` - data supply package
+
+```pricer``` - the pricer interface
 
 
